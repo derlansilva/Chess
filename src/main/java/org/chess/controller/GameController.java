@@ -4,6 +4,7 @@ import org.chess.model.Board;
 import org.chess.model.Piece;
 
 public class GameController {
+
     private Piece selectedPiece ;
     private Board board;
     private boolean isWhiteTurn;
@@ -13,6 +14,8 @@ public class GameController {
     public GameController(Board board) {
         this.board = board;
         this.selectedPiece = null;
+        this.isWhiteTurn = Math.random() < 0.5;
+        isWhiteTurn = true;
     }
 
     public void movePiece(int row , int col ){
@@ -40,21 +43,24 @@ public class GameController {
     }
 
     public void handleClick(int x , int y){
-
+        System.out.println("selected piece ");
         Piece piece =board.getPiece(x , y);
         if(selectedPiece == null){
-            selectedPiece = board.getPiece(x , y);
-            if(selectedPiece != null){
+            //se a peça selecionada e igual a null
+            selectedPiece = board.getPiece(x , y);//seleciona a peça
+            if(selectedPiece != null && selectedPiece.isWhite() == isWhiteTurn){
                 startX = x;
                 startY = y;
             }
         }else{
             if(board.movePiece(startX , startY , x ,y)){
-
+                toggleWhiteTurn();
             }
-
             selectedPiece = null;
         }
     }
 
+    public void toggleWhiteTurn(){
+        isWhiteTurn = !isWhiteTurn;
+    }
 }
