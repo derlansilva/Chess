@@ -1,9 +1,7 @@
 package org.chess.view;
 
 import org.chess.controller.GameController;
-import org.chess.model.Board;
-import org.chess.model.Pawn;
-import org.chess.model.Piece;
+import org.chess.model.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -26,18 +24,19 @@ public class BoardPanel extends JPanel {
         this.pieceImages = new Image[12];
         loadImages();
 
+        //game.setUser();
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 int x = e.getX() / CELL_SIZE;
                 int y = e.getY() / CELL_SIZE;
-                game.handleClick(x , y);
+                game.movePiece(x , y);
                 repaint();
             }
         });
 
-        
+
 
     }
 
@@ -71,6 +70,18 @@ public class BoardPanel extends JPanel {
 
                     if(piece instanceof Pawn){
                         img = piece.isWhite() ? pieceImages[0] : pieceImages[6];
+                    }
+                    if (piece instanceof Rook) {
+                        img = piece.isWhite() ? pieceImages[1] : pieceImages[7];
+
+                    }else if(piece instanceof Knight){
+                        img = piece.isWhite() ? pieceImages[2] : pieceImages[8];
+                    }else if(piece instanceof Bishop){
+                        img = piece.isWhite() ? pieceImages[3] : pieceImages[9];
+                    }else if(piece instanceof Queen){
+                        img = piece.isWhite()  ? pieceImages[4] : pieceImages[10];
+                    } else if (piece instanceof King) {
+                        img = piece.isWhite() ? pieceImages[5] : pieceImages[11];
                     }
 
                     if (img != null) {
