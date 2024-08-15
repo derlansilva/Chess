@@ -7,12 +7,37 @@ public class Bishop extends Piece {
 
     @Override
     public boolean move(int startX, int startY, int endX, int endY, Board board) {
-        int dx = Math.abs(endX - startX);
-        int dy = Math.abs(endY - startY);
-        System.out.println("bispo __________________________");
-        System.out.println("DX " +dx);
-        System.out.println("DY " +dy);
-        System.out.println("bispo __________________________");
-        return false;
+
+        //Veririca se o movimento e diagonal
+        if(Math.abs(endX - startX) != Math.abs(endY - startY)) {
+            return false;
+        }
+        int xDirection = (endX > startX) ? 1 : -1;
+        int yDirection = (endY > startY) ? 1 : -1;
+
+        int x = startX + xDirection ;
+        int y = startY + yDirection;
+        while (x != endX || y != endY) {
+            if( board.getPiece(x , y) != null){
+                return false;
+            }
+            x+=xDirection;
+            y+=yDirection;
+        }
+        while (x!=endX && y!=endY) {
+            if(board.getPiece(x , y) != null){
+                return  false;
+            }
+            x+=xDirection;
+            y+=yDirection;
+        }
+
+
+        Piece destinationPiece = board.getPiece(endX, endY);
+        if(destinationPiece != null && destinationPiece.isWhite() == this.isWhite){
+            return false;
+        }
+
+        return true;
     }
 }

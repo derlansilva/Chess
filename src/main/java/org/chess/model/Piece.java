@@ -1,7 +1,7 @@
 package org.chess.model;
 
 public abstract class Piece {
-    protected boolean isWhite;
+    protected boolean isWhite = false;
     private String name ;
     private User user ;
     public Piece(boolean isWhite) {
