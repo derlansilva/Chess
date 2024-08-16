@@ -31,3 +31,4 @@ public abstract class Piece {
 
     public abstract boolean move(int startX , int startY , int endX , int endY , Board board);
 }
+
